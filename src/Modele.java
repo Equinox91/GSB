@@ -1,6 +1,8 @@
 import java.sql.*;
 import java.util.ArrayList;
 
+import javax.swing.JTextField;
+
 
 
 public class Modele {
@@ -47,7 +49,7 @@ public class Modele {
 			 rs = pst.executeQuery();
 					 id = rs.getString("id");
 					 mdp = rs.getString("mdp");
-					 typeComptable = rs.getInt("comptable");
+					
 					Comptable unComptable =new Comptable(id,mdp,typeComptable);
 
 				rs.close();
