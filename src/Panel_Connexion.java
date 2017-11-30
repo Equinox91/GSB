@@ -13,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Panel_Connexion extends JPanel implements ActionListener  {
@@ -21,16 +22,16 @@ public class Panel_Connexion extends JPanel implements ActionListener  {
 	private JLabel lblMessage;
 	private JLabel lblMessage1;
 	private JTextField id;
-	private JTextField mdp;
+	private JPasswordField mdp;
 	private JButton btn;
 	
 	public Panel_Connexion(){
-		this.setBackground(Color.white);
+		this.setBackground(new Color(119, 181,254));
 		
 		lblMessage= new JLabel("Identifiant :");
-		id = new JTextField("Identifiant");
+		id = new JTextField("");
 		lblMessage1= new JLabel("Mot de passe:");
-		mdp = new JTextField("Mot de passe");
+		mdp = new JPasswordField("");
 		btn = new JButton("Se connecter");
 		 this.btn.addActionListener(this);
 		//dimension des champs
@@ -57,8 +58,13 @@ public class Panel_Connexion extends JPanel implements ActionListener  {
 	public void actionPerformed(java.awt.event.ActionEvent evenement) {
 		// TODO Auto-generated method stub
 		  if(evenement.getSource()==btn){
-			  //Modele.ConnexionLesComptables( id, mdp);
+			  char[] pass = mdp.getPassword();
+			  String passString = new String(pass);
+				Modele.ConnexionLesComptables(id.getText(), passString);
+				System.out.println("passString");
 			  } 
+			
+			
 		
 	}
 }

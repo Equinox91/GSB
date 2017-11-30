@@ -10,7 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 
-public class Fenetre_compt extends JFrame implements ActionListener {
+public class Panel_liste extends JFrame implements ActionListener {
 	
 
 		//Attributs Privés
@@ -26,9 +26,9 @@ public class Fenetre_compt extends JFrame implements ActionListener {
 	
 		private JMenuItem quitter ;
 		
-		public Fenetre_compt() {
+		public Panel_liste() {
 			
-			this.setTitle("GSB Comptable");
+			this.setTitle("Liste");
 			this.setSize(500, 400);
 			this.setLocationRelativeTo(null);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,11 +37,11 @@ public class Fenetre_compt extends JFrame implements ActionListener {
 	
 			menu = new JMenuBar() ;
 			
-			//instanciation du menu 
+			//ajout du menu 
 			JMenu menuPdt = new JMenu("Menu");
 			JMenu menuPg = new JMenu("Quitter");
 			
-			//instanciation des items	
+			//ajout des items	
 			listeV = new JMenuItem("Liste Visiteurs");
 			listeF= new JMenuItem("Liste Fiche");
 			validerF = new JMenuItem("Valider fiche");
@@ -53,7 +53,6 @@ public class Fenetre_compt extends JFrame implements ActionListener {
 		
 			menu.setOpaque(false);
 			
-			//ajout des item au menu
 			menuPdt.add(listeV);
 			menuPdt.add(listeF);
 			menuPdt.add(validerF);

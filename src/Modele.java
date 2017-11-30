@@ -18,6 +18,7 @@ public class Modele {
 			connexion = DriverManager.getConnection("jdbc:mysql://localhost/gsbv2", "root", "");
 			
 			 st = connexion.createStatement();
+	
 		}		
 		
 			catch(SQLException erreur) {
