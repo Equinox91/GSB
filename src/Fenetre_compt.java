@@ -23,7 +23,7 @@ public class Fenetre_compt extends JFrame implements ActionListener {
 		private JMenuItem listeV ;
 		private JMenuItem listeF ;
 		private JMenuItem validerF ;
-	
+		private JMenuItem paiement;
 		private JMenuItem quitter ;
 		
 		public Fenetre_compt() {
@@ -45,6 +45,7 @@ public class Fenetre_compt extends JFrame implements ActionListener {
 			listeV = new JMenuItem("Liste Visiteurs");
 			listeF= new JMenuItem("Liste Fiche");
 			validerF = new JMenuItem("Valider fiche");
+			paiement= new JMenuItem("Paiement");
 			quitter = new JMenuItem("à plus ;)");
 		
 			
@@ -57,12 +58,14 @@ public class Fenetre_compt extends JFrame implements ActionListener {
 			menuPdt.add(listeV);
 			menuPdt.add(listeF);
 			menuPdt.add(validerF);
+			menuPdt.add(paiement);
 			menuPg.add(quitter); 
 		
 			
 			listeV.addActionListener(this);
 			listeF.addActionListener(this);
 			validerF.addActionListener(this);
+			paiement.addActionListener(this);
 			quitter.addActionListener(this);
 		
 			
@@ -91,5 +94,29 @@ public class Fenetre_compt extends JFrame implements ActionListener {
 				
 				System.exit(0) ;
 			}
+           if(e.getSource() == listeV){
+        	 Panel_liste  Panel_list = new  Panel_liste();
+        	this.setContentPane(Panel_list);
+        	getContentPane().revalidate();
+        	  
+           }
+           if(e.getSource() == listeF){
+          	 Panel_listF  Panel_listF = new  Panel_listF();
+          	this.setContentPane(Panel_listF);
+          	getContentPane().revalidate();
+          	  
+             }
+           if(e.getSource() == validerF){
+            	 Panel_Valide  Panel_valid = new  Panel_Valide();
+            	this.setContentPane(Panel_valid);
+            	getContentPane().revalidate();
+            	  
+               }
+           if(e.getSource() == paiement){
+          	 Panel_Paiement  Panel_p = new  Panel_Paiement();
+          	this.setContentPane(Panel_p);
+          	getContentPane().revalidate();
+          	  
+             }
 		}
 }

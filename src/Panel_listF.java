@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 
-public class Panel_liste extends JPanel implements ActionListener {
+public class Panel_listF extends JPanel implements ActionListener {
 	
 
 		//Attributs Privés
@@ -24,11 +24,11 @@ public class Panel_liste extends JPanel implements ActionListener {
 		private JLabel lblMessage1;
 
 		
-		public Panel_liste() {
+		public Panel_listF() {
 			
 	
 	
-			lblMessage1= new JLabel("VISITEUR");
+			lblMessage1= new JLabel("Liste");
 	
 			
 
