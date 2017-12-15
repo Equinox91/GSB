@@ -1,4 +1,4 @@
-import java.sql.*;
+ import java.sql.*;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
@@ -146,24 +146,77 @@ public class Modele {
 		return lesMois ;
 	}
 	
+	public static ArrayList<HorsForfait> getLesHorsForfaits(String unMoisVisiteur, String unIdVisiteur) {
+		ArrayList <HorsForfait> lesHorsForfaits = new ArrayList <HorsForfait>();
+		try {
+			HorsForfait unHorsForfait;
+			String libelle;
+			double montant;
+			String sql = "SELECT libelle,montant FROM lignefraishorsforfait WHERE idVisiteur='"+unIdVisiteur+"' and mois='"+unMoisVisiteur+"';";
+			rs = st.executeQuery(sql) ;
+	
+			while (rs.next()) {
+				libelle = rs.getString(1);
+				montant = rs.getDouble(2);
+				unHorsForfait = new HorsForfait(libelle,montant);
+				lesHorsForfaits.add(unHorsForfait);
+			}
+			rs.close() ; // Permet de libérer la mémoire utilisée.
+		} 
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return lesHorsForfaits ;
+	}
+	
 	  public static FicheFrais getFicheFrais(String unMoisVisiteur, String unIdVisiteur){
 			FicheFrais laFiche = null;
 			try {
-				String unMois;
-				float unMontant;
-				String unIdEtat;
-		
-				String sql = "select mois,montantValide,idEtat from visiteur,fichefrais where fichefrais.idVisiteur = visiteur.id and mois='"+ unMoisVisiteur+ "' and idVisiteur='"+unIdVisiteur+"';";
+				double unNbForfait = 0;
+				double unNbKm = 0;
+				double unNbNuitee = 0;
+				double unNbRepas = 0;
+		//Recupère nbForfait
+				String sql = "select quantite from lignefraisforfait where idFraisForfait='ETP' and mois='"+ unMoisVisiteur+ "' and idVisiteur='"+unIdVisiteur+"';";
 				rs = st.executeQuery(sql) ;
 		
 				while (rs.next()) {
-					unMois = rs.getString(1);
-					unMontant = rs.getFloat(2);
-					unIdEtat = rs.getString(3);
-					laFiche = new FicheFrais(unMois,unMontant,unIdEtat);
+					unNbForfait = rs.getDouble(1);
+
 				}
 				rs.close() ; // Permet de libérer la mémoire utilisée.
-			} 
+			//Recupère nbKm
+			sql = "select quantite from lignefraisforfait where idFraisForfait='KM' and mois='"+ unMoisVisiteur+ "' and idVisiteur='"+unIdVisiteur+"';";
+			rs = st.executeQuery(sql) ;
+	
+			while (rs.next()) {
+				unNbKm = rs.getDouble(1);
+
+			}
+			rs.close() ; // Permet de libérer la mémoire utilisée.
+			//Recupère nbNuitee
+			sql = "select quantite from lignefraisforfait where idFraisForfait='NUI' and mois='"+ unMoisVisiteur+ "' and idVisiteur='"+unIdVisiteur+"';";
+			rs = st.executeQuery(sql) ;
+	
+			while (rs.next()) {
+				unNbNuitee = rs.getDouble(1);
+
+			}
+			rs.close() ; // Permet de libérer la mémoire utilisée.
+			//Recupère nbRepas
+			sql = "select quantite from lignefraisforfait where idFraisForfait='REP' and mois='"+ unMoisVisiteur+ "' and idVisiteur='"+unIdVisiteur+"';";
+			rs = st.executeQuery(sql) ;
+	
+			while (rs.next()) {
+				unNbRepas = rs.getDouble(1);
+
+			}
+			rs.close() ; // Permet de libérer la mémoire utilisée.
+			laFiche = new FicheFrais(FicheFrais.getCoutTotalForfait(unNbForfait),FicheFrais.getCoutTotalKm(unNbKm),FicheFrais.getCoutTotalNuitee(unNbNuitee),FicheFrais.getCoutTotalRepas(unNbRepas));
+		} 
 			catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -171,4 +224,42 @@ public class Modele {
 		return laFiche;
 		  
 	  }
+	  
+	  public static ArrayList<FicheFrais> getLesFiches() {
+			connect();
+			ArrayList <FicheFrais> lesFiches = new ArrayList <FicheFrais>();
+			try {
+		
+		
+				FicheFrais uneFiche ;
+				String unIdVisiteur;
+				String unMois;
+				int unNbJustificatifs  ;
+				float unMontantValide  ;
+				Date uneDateModif; 
+				String unIdEtat;
+				
+				String sql = "select * from fichefrais ";
+				rs = st.executeQuery(sql) ;
+		
+				while (rs.next()) {
+					unIdVisiteur = rs.getString(1);
+					unMois = rs.getString(2);
+					unNbJustificatifs = rs.getInt(3);
+					unMontantValide = rs.getInt(4);
+					uneDateModif= rs.getDate(5);
+					unIdEtat= rs.getString(6);
+					uneFiche = new FicheFrais(unIdEtat);
+					lesFiches.add(uneFiche);
+				}
+				rs.close() ; // Permet de libérer la mémoire utilisée.
+			} 
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+			return lesFiches ;
+		}
 }

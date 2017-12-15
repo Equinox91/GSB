@@ -13,12 +13,16 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 
 public class Panel_liste extends JPanel implements ActionListener {
 	
 
 		//Attributs Privés
+	 private JTable tableau;
+	  JScrollPane scrollPane;
 	  private JComboBox combo = new JComboBox();
 	  private JComboBox mois = new JComboBox();
 	  private JLabel label = new JLabel("Les visiteurs : ");
@@ -39,11 +43,8 @@ public class Panel_liste extends JPanel implements ActionListener {
 		select1="Selectionner un visiteur";
 		select2="Selectionner un mois";
 		
-		//Ajoute les visiteurs à la liste 
-		ArrayList <Visiteur> LesVisiteurs =  Modele.getLesVisiteurs();
-		for(Visiteur unVisiteur : LesVisiteurs){
-			combo.addItem(unVisiteur.getNomVisiteur());
-		}
+
+		this.scrollPane = new JScrollPane();
 		
 		//Ajout des éléments au panel
 			combo.addItem(select1);
@@ -54,11 +55,19 @@ public class Panel_liste extends JPanel implements ActionListener {
 			this.add(mois);
 			this.add(btn);
 			combo.addActionListener(this);
+			mois.addActionListener(this);
+			btn.addActionListener(this);
 			this.setBackground(Color.white);
 			this.setVisible(true) ;
 
-		 
-		
+			//Ajoute les visiteurs à la liste 
+			ArrayList <Visiteur> LesVisiteurs =  Modele.getLesVisiteurs();
+			for(Visiteur unVisiteur : LesVisiteurs){
+				combo.addItem(unVisiteur.getNomVisiteur());
+			}
+			
+			
+
 
 		}
 
@@ -82,11 +91,44 @@ public class Panel_liste extends JPanel implements ActionListener {
 					mois.removeAllItems();
 					mois.addItem(select2);
 				}
+			}
 				if(e.getSource() == btn ){
+					
+
 				
+					Object data[][]= new Object[10][10];
+					int i = 0;
+					
+						data[i][0] =.getNomVisiteur();
+						
+						i++;
+				
+					
+				
+				
+					
+					
+					String [] title = {"Name", "Fiches"};
+					this.tableau = new JTable(data,title);
+					
+					this.tableau.setRowHeight(30);
+					
+
+			
+					
+					
+					this.setBackground(Color.white);
+				
+					this.scrollPane = new JScrollPane(this.tableau);
+					this.add(this.scrollPane);
+					this.setVisible(true) ;
+
+				 
+				
+
 				}
 				
 				
 			}
-		}
+		
 }
